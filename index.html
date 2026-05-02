@@ -15,6 +15,11 @@
             color: #2da71d;
             margin: 0;
         }
+        h1 {
+            font-size: 20px;
+            color: #2da71d;
+            margin: 0 0 12px 0;
+        }
         button {
             margin-top: 40px;
             padding: 10px 20px;
@@ -45,7 +50,7 @@
                 transform: translateY(0);
             }
         }
-        p.spin {
+        p.spin, h1.spin {
             transform-origin: center center;
             animation: spin-text 0.8s cubic-bezier(.2,.8,.2,1) forwards;
         }
@@ -65,10 +70,11 @@
 </head>
 <body>
     <p>I love u Alex ❤️</p>
+    <h1>Get well soon!</h1>
     <button id="spinBtn">SPIN!</button>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('p').forEach(p => {
+            document.querySelectorAll('p, h1').forEach(p => {
                 const text = p.textContent;
                 p.textContent = '';
                 [...text].forEach((ch, i) => {
@@ -86,10 +92,10 @@
             });
 
             const btn = document.getElementById('spinBtn');
-            const para = document.querySelector('p');
-            if (btn && para) {
+            const paras = document.querySelectorAll('p, h1');
+            if (btn && paras.length) {
                 btn.addEventListener('click', () => {
-                    para.classList.add('spin');
+                    paras.forEach(el => el.classList.add('spin'));
                     btn.classList.add('fade');
                     btn.disabled = true;
                 });
