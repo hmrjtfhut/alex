@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            background-color: #101d05;
+        }
+        p {
+            font-size: 44px;
+            color: #2da71d;
+            margin: 0;
+        }
+        button {
+            margin-top: 40px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #184b12;
+            color: rgb(23, 230, 16);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: char-fade 0.5s cubic-bezier(.2,.8,.2,1) forwards;
+        }
+        .space {
+            width: 0.25em;
+            display: inline-block;
+        }
+        @keyframes char-fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        p.spin {
+            transform-origin: center center;
+            animation: spin-text 0.8s cubic-bezier(.2,.8,.2,1) forwards;
+        }
+        @keyframes spin-text {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        button.fade {
+            pointer-events: none;
+            animation: button-fade 3.6s ease forwards;
+        }
+        @keyframes button-fade {
+            to { opacity: 0; transform: translateY(6px) scale(0.96); }
+        }
+    </style>
+    <title>Alex ❤️</title>
+</head>
+<body>
+    <p>I love u Alex ❤️</p>
+    <button id="spinBtn">SPIN!</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('p').forEach(p => {
+                const text = p.textContent;
+                p.textContent = '';
+                [...text].forEach((ch, i) => {
+                    const span = document.createElement('span');
+                    if (ch === ' ') {
+                        span.className = 'space';
+                        span.innerHTML = '&nbsp;';
+                    } else {
+                        span.className = 'char';
+                        span.textContent = ch;
+                    }
+                    span.style.animationDelay = (i * 0.06) + 's';
+                    p.appendChild(span);
+                });
+            });
+
+            const btn = document.getElementById('spinBtn');
+            const para = document.querySelector('p');
+            if (btn && para) {
+                btn.addEventListener('click', () => {
+                    para.classList.add('spin');
+                    btn.classList.add('fade');
+                    btn.disabled = true;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
